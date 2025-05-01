@@ -7,6 +7,9 @@
 #elif MACOSX
 // SDL2 includes
 #include <SDL2/SDL.h>
+#elif PS3
+// SDL2 includes
+#include <SDL2/SDL.h>
 #elif SWITCH
 // SDL2 includes
 #include <SDL2/SDL.h>

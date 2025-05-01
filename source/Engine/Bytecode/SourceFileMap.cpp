@@ -99,7 +99,7 @@ bool SourceFileMap::CheckForUpdate() {
 		return false;
 	}
 
-	vector<std::filesystem::path> list;
+	vector<fs::path> list;
 	Directory::GetFiles(&list, scriptFolder, "*.hsl", true);
 
 	if (list.size() == 0) {

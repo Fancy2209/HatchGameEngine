@@ -2278,7 +2278,7 @@ VMValue Directory_GetFiles(int argCount, VMValue* args, Uint32 threadID) {
 	char* pattern = GET_ARG(1, GetString);
 	int allDirs = GET_ARG(2, GetInteger);
 
-	std::vector<std::filesystem::path> fileList;
+	std::vector<fs::path> fileList;
 	Directory::GetFiles(&fileList, directory, pattern, allDirs);
 
 	if (ScriptManager::Lock()) {
@@ -2308,7 +2308,7 @@ VMValue Directory_GetDirectories(int argCount, VMValue* args, Uint32 threadID) {
 	char* pattern = GET_ARG(1, GetString);
 	int allDirs = GET_ARG(2, GetInteger);
 
-	std::vector<std::filesystem::path> fileList;
+	std::vector<fs::path> fileList;
 	Directory::GetDirectories(&fileList, directory, pattern, allDirs);
 
 	if (ScriptManager::Lock()) {

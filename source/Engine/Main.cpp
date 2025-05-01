@@ -3,6 +3,9 @@
 #include <Engine/Includes/Standard.h>
 
 int main(int argc, char* args[]) {
+#ifdef PS3
+	chdir("/dev_hdd0/HGE");	
+#endif
 #if SWITCH
 	Log::Init();
 	socketInitializeDefault();

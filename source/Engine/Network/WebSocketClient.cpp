@@ -187,6 +187,7 @@ size_t base64_decode(char* source, unsigned char* target, size_t targetlen) {
 }
 
 socket_t socket_connect(const char* hostname, int port) {
+	#ifndef PS3
 	char sport[16];
 	snprintf(sport, 16, "%d", port);
 
@@ -219,6 +220,10 @@ socket_t socket_connect(const char* hostname, int port) {
 	}
 	freeaddrinfo(result);
 	return sockfd;
+	#else
+	// TODO:
+	return -1;
+	#endif
 }
 size_t socket_send_string(socket_t sockfd, const char* str, ...) {
 	char line[1024];
@@ -329,12 +334,13 @@ WebSocketClient* WebSocketClient::New(const char* url) {
 			break;
 		}
 	}
-
+	#ifndef PS3
 	setsockopt(sockfd,
 		IPPROTO_TCP,
 		TCP_NODELAY,
 		(char*)&flag,
 		sizeof(flag)); // Disable Nagle's algorithm
+	#endif
 #ifdef _WIN32
 	{
 		u_long on = 1;

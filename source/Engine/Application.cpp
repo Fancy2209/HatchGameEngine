@@ -51,6 +51,8 @@ Platforms Application::Platform = Platforms::Linux;
 Platforms Application::Platform = Platforms::Switch;
 #elif PLAYSTATION
 Platforms Application::Platform = Platforms::PlayStation;
+#elif PS3
+Platforms Application::Platform = Platforms::PS3;
 #elif XBOX
 Platforms Application::Platform = Platforms::Xbox;
 #elif ANDROID
@@ -73,7 +75,7 @@ float Application::CurrentFPS = DEFAULT_TARGET_FRAMERATE;
 bool Application::Running = false;
 bool Application::FirstFrame = true;
 bool Application::GameStart = false;
-bool Application::PortableMode = false;
+bool Application::PortableMode = true;
 
 SDL_Window* Application::Window = NULL;
 char Application::WindowTitle[256];
@@ -198,7 +200,8 @@ void Application::Init(int argc, char* args[]) {
 	}
 	else
 #endif
-		ResourceManager::Init(NULL);
+	#ifdef PS3
+		ResourceManager::Init("/dev_hdd0/HGE");
 
 	Application::LoadGameConfig();
 	Application::LoadGameInfo();
@@ -257,6 +260,9 @@ void Application::LogSystemInfo() {
 	case Platforms::Switch:
 		platform = "Nintendo Switch";
 		break;
+	case Platforms::PS3:
+		platform = "PlayStation 3";
+		break;
 	case Platforms::PlayStation:
 		platform = "PlayStation";
 		break;
@@ -297,7 +303,7 @@ void Application::CreateWindow() {
 		Application::WindowHeight,
 		window_flags);
 
-	if (Application::Platform == Platforms::iOS) {
+	if (Application::Platform == Platforms::iOS || Application::Platform == Platforms::PS3) {
 		SDL_SetWindowFullscreen(Application::Window, SDL_WINDOW_FULLSCREEN);
 	}
 	else if (Application::Platform == Platforms::Switch) {
@@ -378,7 +384,7 @@ bool Application::IsMobile() {
 // Android, iOS, and macOS app bundles are "restricted" in one way or another, but
 // a Windows .exe or a non-sandboxed Linux executable isn't.
 bool Application::IsEnvironmentRestricted() {
-#if defined(ANDROID) || defined(IOS) || defined(SWITCH) || defined(XBOX) || defined(PLAYSTATION)
+#if defined(ANDROID) || defined(IOS) || defined(SWITCH) || defined(XBOX) || defined(PLAYSTATION) || defined(PS3)
 	return true;
 #else
 	// This may be an expensive call, so we cache the result.

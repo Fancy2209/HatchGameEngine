@@ -173,7 +173,7 @@ VFSEnumeration FileSystemVFS::EnumerateFiles(const char* path) {
 	std::string fullPath = ParentPath;
 
 	if (path != nullptr && path[0] != '\0') {
-		std::filesystem::path pathToEnumerate = std::filesystem::u8path(std::string(path));
+		fs::path pathToEnumerate = fs::u8path(std::string(path));
 		pathToEnumerate = pathToEnumerate.lexically_normal();
 
 		fullPath = Path::Concat(fullPath, pathToEnumerate.u8string());
@@ -190,7 +190,7 @@ VFSEnumeration FileSystemVFS::EnumerateFiles(const char* path) {
 		fullPathLength++;
 	}
 
-	std::vector<std::filesystem::path> results;
+	std::vector<fs::path> results;
 	Directory::GetFiles(&results, fullPath.c_str(), "*", true);
 
 	for (size_t i = 0; i < results.size(); i++) {

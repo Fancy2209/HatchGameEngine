@@ -7,17 +7,17 @@ class Directory {
 public:
 	static bool Exists(const char* path);
 	static bool Create(const char* path);
-	static void GetFiles(std::vector<std::filesystem::path>* files,
+	static void GetFiles(std::vector<fs::path>* files,
 		const char* path,
 		const char* searchPattern,
 		bool allDirs);
-	static std::vector<std::filesystem::path>
+	static std::vector<fs::path>
 	GetFiles(const char* path, const char* searchPattern, bool allDirs);
-	static void GetDirectories(std::vector<std::filesystem::path>* files,
+	static void GetDirectories(std::vector<fs::path>* files,
 		const char* path,
 		const char* searchPattern,
 		bool allDirs);
-	static std::vector<std::filesystem::path>
+	static std::vector<fs::path>
 	GetDirectories(const char* path, const char* searchPattern, bool allDirs);
 };
 

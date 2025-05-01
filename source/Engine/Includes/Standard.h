@@ -13,7 +13,13 @@
 #include <algorithm>
 #include <csetjmp>
 #include <deque>
+#ifndef PS3
 #include <filesystem>
+namespace fs = std::filesystem;
+#else
+#include <Libraries/filesystem.hpp>
+namespace fs = ghc::filesystem;
+#endif
 #include <map>
 #include <memory>
 #include <stack>
@@ -43,7 +49,7 @@ using deque = std::deque<T>;
 
 using string = std::string;
 
-enum class Platforms { Windows, MacOS, Linux, Switch, PlayStation, Xbox, Android, iOS, Unknown };
+enum class Platforms { Windows, MacOS, Linux, Switch, PS3, PlayStation, Xbox, Android, iOS, Unknown };
 
 enum class KeyBind {
 	Fullscreen,

@@ -18,6 +18,8 @@ bool File::Exists(const char* path, bool allowURLs) {
 		return false;
 	}
 
+	
+
 	Stream* stream = FileStream::New(path, FileStream::READ_ACCESS, allowURLs);
 	if (stream) {
 		stream->Close();

@@ -14,6 +14,9 @@ Sint64 Win32_GameStartTime;
 stack<double> Win32_ClockStack;
 #endif
 
+#ifdef PS3
+#include "SDL.h"
+#endif
 #include <chrono>
 #include <ratio>
 #include <stack>
@@ -90,6 +93,9 @@ void Clock::Delay(double milliseconds) {
 		return;
 	}
 #endif
-
+#ifdef PS3
+	SDL_Delay(milliseconds);
+#else
 	std::this_thread::sleep_for(std::chrono::nanoseconds((int)(milliseconds * 1000000.0)));
+#endif
 }

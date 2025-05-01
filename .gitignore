@@ -395,7 +395,7 @@ out/
 
 # Gradle files
 .gradle/
-build/
+build*/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -464,3 +464,5 @@ lint/tmp/
 *.hprof
 compile_commands.json
 desktop.ini
+.vscode/settings.json
+.vscode/settings.json

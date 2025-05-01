@@ -30,7 +30,7 @@ bool Log::Initialized = false;
 char* Log::Buffer = nullptr;
 size_t Log::BufferSize = 0;
 
-#if WIN32 || LINUX
+#if WIN32 || LINUX && !defined(PS3)
 #define USING_COLOR_CODES 1
 #endif
 

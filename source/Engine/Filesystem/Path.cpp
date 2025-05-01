@@ -69,10 +69,10 @@ bool Path::Create(const char* path) {
 }
 
 std::string Path::Concat(std::string pathA, std::string pathB) {
-	std::filesystem::path fsPathA = std::filesystem::u8path(pathA);
-	std::filesystem::path fsPathB = std::filesystem::u8path(pathB);
+	fs::path fsPathA = fs::u8path(pathA);
+	fs::path fsPathB = fs::u8path(pathB);
 
-	std::filesystem::path fsResult = fsPathA / fsPathB;
+	fs::path fsResult = fsPathA / fsPathB;
 
 	std::string result = fsResult.u8string();
 
@@ -111,11 +111,11 @@ bool Path::IsInDir(const char* dirPath, const char* path) {
 		return false;
 	}
 
-	std::filesystem::path basePath = std::filesystem::u8path(std::string(dirPath));
-	std::filesystem::path fsPath = std::filesystem::u8path(std::string(path));
+	fs::path basePath = fs::u8path(std::string(dirPath));
+	fs::path fsPath = fs::u8path(std::string(path));
 
-	std::filesystem::path normBase = basePath.lexically_normal();
-	std::filesystem::path finalPath = (normBase / fsPath).lexically_normal();
+	fs::path normBase = basePath.lexically_normal();
+	fs::path finalPath = (normBase / fsPath).lexically_normal();
 
 	if (!AreMatching(normBase.u8string(), finalPath.u8string())) {
 		return false;
@@ -165,7 +165,7 @@ bool Path::HasRelativeComponents(const char* path) {
 }
 
 std::string Path::Normalize(std::string path) {
-	std::filesystem::path fsPath = std::filesystem::u8path(path);
+	fs::path fsPath = fs::u8path(path);
 
 	std::string result = fsPath.lexically_normal().u8string();
 
@@ -240,6 +240,8 @@ std::string Path::GetGameNamePath() {
 }
 
 std::string Path::GetBaseUserPath() {
+	if (Application::PortableMode)
+		return GetPortableModePath();
 	return GetPrefPath();
 }
 
@@ -274,7 +276,7 @@ std::string Path::GetBaseConfigPath() {
 
 	wchar_t* winPath = nullptr;
 	if (SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, nullptr, &winPath) == S_OK) {
-		std::filesystem::path fsPath = std::filesystem::path(winPath);
+		fs::path fsPath = fs::path(winPath);
 
 		basePath = fsPath.u8string();
 		std::replace(basePath.begin(), basePath.end(), '\\', '/');
@@ -496,13 +498,13 @@ bool Path::FromLocation(std::string path,
 	}
 
 	// Normalize both paths, and check for a mismatch
-	std::filesystem::path pathForLocationFs = std::filesystem::u8path(pathForLocation);
-	std::filesystem::path detectedPathFs = std::filesystem::u8path(path);
+	fs::path pathForLocationFs = fs::u8path(pathForLocation);
+	fs::path detectedPathFs = fs::u8path(path);
 
 	pathForLocationFs = pathForLocationFs.lexically_normal();
 	detectedPathFs = detectedPathFs.lexically_normal();
 
-	std::filesystem::path combined = pathForLocationFs / detectedPathFs;
+	fs::path combined = pathForLocationFs / detectedPathFs;
 	std::string finalPath = combined.lexically_normal().u8string();
 
 	if (finalPath.size() == 0) {

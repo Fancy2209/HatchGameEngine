@@ -252,3 +252,8 @@ endif()
 if(USING_OPENGL)
   target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES})
 endif()
+if(PS3)
+  add_definitions(-DPS3)
+  target_link_libraries(${PROJECT_NAME} m gcm_sys rsx sysutil io audio rt lv2 io audio)
+  # TODO: Run sprxlinker and make_self automatically
+endif()
