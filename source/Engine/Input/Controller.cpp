@@ -197,7 +197,7 @@ bool Controller::IsXbox() {
 		Type == ControllerType::XboxSeriesXS || Type == ControllerType::XboxElite;
 }
 bool Controller::IsPlayStation() {
-	return Type == ControllerType::PS3 || Type == ControllerType::PS4 ||
+	return Type == ControllerType::PlayStation3 || Type == ControllerType::PS4 ||
 		Type == ControllerType::PS5;
 }
 bool Controller::IsJoyCon() {
