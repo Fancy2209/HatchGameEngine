@@ -306,14 +306,13 @@ std::string Path::GetBaseConfigPath() {
 }
 
 std::string Path::GetStatePath() {
+	if (Application::PortableMode) {
+		return GetPortableModePath();
+	}
 #if WIN32
 	// Returns %LocalAppData%
 	return GetBaseConfigPath();
 #elif LINUX
-	if (Application::PortableMode) {
-		return GetPortableModePath();
-	}
-
 	std::string gamePath = GetGameNamePath();
 	if (gamePath == "") {
 		return "";

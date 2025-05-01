@@ -32,15 +32,22 @@ const char* FindDataFile() {
 bool ResourceManager::Init(const char* filename) {
 	vfs = new VirtualFileSystem();
 
-	#ifndef PS3
+	#ifdef PS3
+	if (filename != NULL) {
+	#else
 	if (filename != NULL && File::Exists(filename)) {
+	#endif
 		Log::Print(Log::LOG_IMPORTANT, "Loading \"%s\"...", filename);
 	}
 	else {
 		filename = FindDataFile();
 	}
 
+	#ifdef PS3
+	if (filename != NULL) {
+	#else
 	if (filename != NULL && File::Exists(filename)) {
+	#endif
 		ResourceManager::Mount(
 			RESOURCES_VFS_NAME, filename, nullptr, VFSType::HATCH, VFS_READABLE);
 	}
@@ -62,11 +69,6 @@ bool ResourceManager::Init(const char* filename) {
 				RESOURCES_DIR_PATH);
 		}
 	}
-	#else
-	// PS3 IO is funky
-	ResourceManager::Mount(
-		RESOURCES_VFS_NAME, "/dev_hdd0/HGE/Data.hatch", nullptr, VFSType::HATCH, VFS_READABLE);
-	#endif
 
 	if (GetMainResource() == nullptr) {
 		Log::Print(Log::LOG_ERROR, "No resource files loaded!");

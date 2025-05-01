@@ -200,6 +200,7 @@ void Application::Init(int argc, char* args[]) {
 	}
 	else
 #endif
+	ResourceManager::Init("/dev_hdd0/HGE/Data.hatch");
 	Application::LoadGameConfig();
 	Application::LoadGameInfo();
 	Application::ReloadSettings();
