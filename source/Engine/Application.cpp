@@ -304,7 +304,7 @@ void Application::CreateWindow() {
 		Application::WindowHeight,
 		window_flags);
 
-	if (Application::Platform == Platforms::iOS || Application::Platform == Platforms::PS3) {
+	if (Application::Platform == Platforms::iOS || Application::Platform == Platforms::PlayStation3) {
 		SDL_SetWindowFullscreen(Application::Window, SDL_WINDOW_FULLSCREEN);
 	}
 	else if (Application::Platform == Platforms::Switch) {
