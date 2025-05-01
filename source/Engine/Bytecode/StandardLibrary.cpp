@@ -18026,10 +18026,10 @@ void StandardLibrary::Link() {
         */
 		CONST_CONTROLLER(XboxElite);
 		/***
-        * \enum Controller_PS3
+        * \enum Controller_PlayStation3
         * \desc PlayStation 3 controller type.
         */
-		CONST_CONTROLLER(PS3);
+		CONST_CONTROLLER(PlayStation3);
 		/***
         * \enum Controller_PS4
         * \desc PlayStation 4 controller type.
