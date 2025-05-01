@@ -52,7 +52,7 @@ Platforms Application::Platform = Platforms::Switch;
 #elif PLAYSTATION
 Platforms Application::Platform = Platforms::PlayStation;
 #elif PS3
-Platforms Application::Platform = Platforms::PS3;
+Platforms Application::Platform = Platforms::PlayStation3;
 #elif XBOX
 Platforms Application::Platform = Platforms::Xbox;
 #elif ANDROID
@@ -260,7 +260,7 @@ void Application::LogSystemInfo() {
 	case Platforms::Switch:
 		platform = "Nintendo Switch";
 		break;
-	case Platforms::PS3:
+	case Platforms::PlayStation3:
 		platform = "PlayStation 3";
 		break;
 	case Platforms::PlayStation:

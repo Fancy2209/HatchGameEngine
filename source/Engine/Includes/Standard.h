@@ -49,7 +49,7 @@ using deque = std::deque<T>;
 
 using string = std::string;
 
-enum class Platforms { Windows, MacOS, Linux, Switch, PS3, PlayStation, Xbox, Android, iOS, Unknown };
+enum class Platforms { Windows, MacOS, Linux, Switch, PlayStation3, PlayStation, Xbox, Android, iOS, Unknown };
 
 enum class KeyBind {
 	Fullscreen,

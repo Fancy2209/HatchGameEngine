@@ -127,7 +127,7 @@ enum class ControllerType {
 	XboxOne,
 	XboxSeriesXS,
 	XboxElite,
-	PS3,
+	PlayStation3,
 	PS4,
 	PS5,
 	SwitchJoyConPair,

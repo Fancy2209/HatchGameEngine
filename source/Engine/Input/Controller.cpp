@@ -55,7 +55,7 @@ ControllerType Controller::DetermineType(void* gamecontroller) {
 	case SDL_CONTROLLER_TYPE_XBOXONE:
 		return ControllerType::XboxOne;
 	case SDL_CONTROLLER_TYPE_PS3:
-		return ControllerType::PS3;
+		return ControllerType::PlayStation3;
 	case SDL_CONTROLLER_TYPE_PS4:
 		return ControllerType::PS4;
 	case SDL_CONTROLLER_TYPE_PS5:
