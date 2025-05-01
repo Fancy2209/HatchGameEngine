@@ -201,8 +201,9 @@ void Application::Init(int argc, char* args[]) {
 	else
 #endif
 	#ifdef PS3
+	// TODO: Make this usb0?
 		ResourceManager::Init("/dev_hdd0/HGE");
-
+	#endif
 	Application::LoadGameConfig();
 	Application::LoadGameInfo();
 	Application::ReloadSettings();
