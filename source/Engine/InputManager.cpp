@@ -291,6 +291,14 @@ Controller* InputManager::OpenController(int index) {
 }
 
 void InputManager::InitControllers() {
+#ifdef PS3
+	// Controller won't work unless 
+	// we wait for them to show up
+	while(SDL_NumJoysticks() == 0)
+	{ 
+		SDL_PumpEvents();
+	}
+#endif
 	int numControllers = 0;
 	int numJoysticks = SDL_NumJoysticks();
 	for (int i = 0; i < numJoysticks; i++) {
