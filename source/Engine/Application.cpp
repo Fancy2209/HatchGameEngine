@@ -45,7 +45,7 @@ extern "C" {
 Platforms Application::Platform = Platforms::Windows;
 #elif MACOSX
 Platforms Application::Platform = Platforms::MacOS;
-#elif LINUX
+#elif LINUX && !PS3
 Platforms Application::Platform = Platforms::Linux;
 #elif SWITCH
 Platforms Application::Platform = Platforms::Switch;
@@ -116,7 +116,7 @@ char LogFilename[MAX_PATH_LENGTH];
 bool UseMemoryFileCache = false;
 
 bool DevMenu = false;
-bool ShowFPS = false;
+bool ShowFPS = true;
 bool TakeSnapshot = false;
 bool DoNothing = false;
 int UpdatesPerFastForward = 4;
@@ -200,7 +200,15 @@ void Application::Init(int argc, char* args[]) {
 	}
 	else
 #endif
-	ResourceManager::Init("/dev_hdd0/HGE/Data.hatch");
+#ifdef PS3
+	// TODO: Preferably, games wouldn't use HATC00000 as the appid
+	// TODO: Uncomment this line when making a PKG, if not leave the other one uncommented
+	// As the game can't load files from that directory when using ps3load
+	ResourceManager::Init("/dev_hdd0/game/HATC00000/USRDIR/Data.hatch");
+	//ResourceManager::Init("/dev_hdd0/HGE/Data.hatch");
+#else
+	ResourceManager::Init(NULL);
+#endif
 	Application::LoadGameConfig();
 	Application::LoadGameInfo();
 	Application::ReloadSettings();
@@ -301,7 +309,7 @@ void Application::CreateWindow() {
 		Application::WindowHeight,
 		window_flags);
 
-	if (Application::Platform == Platforms::iOS || Application::Platform == Platforms::PlayStation3) {
+	if (Application::Platform == Platforms::iOS) {
 		SDL_SetWindowFullscreen(Application::Window, SDL_WINDOW_FULLSCREEN);
 	}
 	else if (Application::Platform == Platforms::Switch) {
@@ -1345,21 +1353,21 @@ DO_NOTHING:
 		};
 
 		int typeCount = sizeof(types) / sizeof(double);
-
+//#if 0
 		Graphics::Save();
 		Graphics::Translate(infoPadding - 2.0, infoPadding, 0.0);
 		Graphics::Scale(0.85, 0.85, 1.0);
 		snprintf(textBuffer, 256, "Frame Information");
 		DEBUG_DrawText(textBuffer, 0.0, 0.0);
 		Graphics::Restore();
-
+//#endif
 		Graphics::Save();
 		Graphics::Translate(infoW - infoPadding - (8 * 16.0 * 0.85), infoPadding, 0.0);
 		Graphics::Scale(0.85, 0.85, 1.0);
 		snprintf(textBuffer, 256, "FPS: %03.1f", CurrentFPS);
 		DEBUG_DrawText(textBuffer, 0.0, 0.0);
 		Graphics::Restore();
-
+//#if 0
 		if (Application::Platform == Platforms::Android || true) {
 			// Draw bar
 			double total = 0.0001;
@@ -1491,6 +1499,7 @@ DO_NOTHING:
 			}
 		}
 		Graphics::Restore();
+//#endif	
 	}
 	MetricFPSCounterTime = Clock::GetTicks() - MetricFPSCounterTime;
 
@@ -2100,8 +2109,13 @@ void Application::InitSettings(const char* filename) {
 
 	Application::Settings = INI::New(Application::SettingsFile);
 
+#ifdef PS3
+	Application::Settings->SetBool("display", "fullscreen", true);
+	Application::Settings->SetBool("display", "vsync", true);
+#else
 	Application::Settings->SetBool("display", "fullscreen", false);
 	Application::Settings->SetBool("display", "vsync", false);
+#endif
 	Application::Settings->SetInteger("display", "frameSkip", DEFAULT_MAX_FRAMESKIP);
 }
 void Application::SaveSettings() {

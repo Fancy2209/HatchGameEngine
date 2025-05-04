@@ -4,6 +4,8 @@
 
 int main(int argc, char* args[]) {
 #ifdef PS3
+	mkdir("/dev_hdd0/HGE", 0777);	
+	mkdir("/dev_hdd0/HGE/saves", 0777);	
 	chdir("/dev_hdd0/HGE");	
 #endif
 #if SWITCH

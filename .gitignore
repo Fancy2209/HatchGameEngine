@@ -466,3 +466,6 @@ compile_commands.json
 desktop.ini
 .vscode/settings.json
 .vscode/settings.json
+
+meta/ps3/*.pkg
+meta/ps3/*.hatch
